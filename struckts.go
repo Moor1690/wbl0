@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"time"
 )
 
@@ -56,4 +57,11 @@ type Item struct {
 	Nm_id        int    `json:"nm_id"`
 	Brand        string `json:"brand"`
 	Status       int    `json:"status"`
+}
+
+func (o *Order) Validate() error {
+	if o.OrderUID == "" {
+		return errors.New("order UID cannot be empty")
+	}
+	return nil
 }
