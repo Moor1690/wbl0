@@ -15,7 +15,7 @@ func natsSubscription(dataCh chan string) {
 
 	_, err = nc.Subscribe(subject, func(msg *stan.Msg) {
 		dataCh <- string(msg.Data)
-	})
+	}, stan.DeliverAllAvailable())
 	if err != nil {
 		log.Fatal(err)
 	}

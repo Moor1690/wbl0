@@ -39,6 +39,11 @@ func InsertOrder(ctx context.Context, conn *pgxpool.Pool, dataCh chan string, or
 			continue
 		}
 
+		if val, exists := orders[o.OrderUID]; exists {
+			fmt.Println("order with this uid already exists", val.OrderUID)
+			continue
+		}
+
 		orders[o.OrderUID] = o
 
 		sql := `INSERT INTO orders (order_uid, track_number, entry, delivery, payment, items, locale, internal_signature, customer_id, delivery_service, shardkey, sm_id, date_created, oof_shard)
